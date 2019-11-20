@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<fieldset style="height: fit-content;width: fit-content">
+    <legend><h2 style="color: blueviolet">Book Detail</h2></legend>
+    <p>Book Name:&nbsp;<input readonly th:value="${book.getName()}"></p>
+    <p>Date Of Purchase:&nbsp;<input  type="date" readonly th:value="${book.getDateOfPurchase()}"></p>
+    <p>Author:&nbsp;<input readonly th:value="${book.getAuthor()}"></p>
+    <p>Price:&nbsp;<input readonly th:value="${book.getPrice()}"></p>
+    <p>Category:&nbsp;<input readonly th:value="${book.getCategory().getName()}"></p>
+</fieldset>
+<p><a th:href="@{/}"><button type="button">Back</button></a></p>
+</body>
+</html>

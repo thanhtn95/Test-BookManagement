@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Category Name:&nbsp;<input readonly th:value="${category.getName()}"></p>
+<p>Descriprion:&nbsp;<input readonly th:value="${category.getDescription()}"></p>
+<p><a th:href="@{/categoryList}"><button type="button">Back</button></a></p>
+</body>
+</html>

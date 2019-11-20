@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${category}" th:action="@{/doEditCategory}" method="post">
+    <p><input hidden th:field="*{id}"></p>
+    <p>Category Name:&nbsp;<input th:field="*{name}"></p>
+    <p>Descriprion:&nbsp;<input th:field="*{description}"></p>
+    <p><button type="submit" onclick="return confirm('Are you Sure?')">Update</button></p>
+</form>
+<p><a th:href="@{/categoryList}"><button type="button">Back</button></a></p>
+</body>
+</html>

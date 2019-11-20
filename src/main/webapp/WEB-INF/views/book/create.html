@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${book}" th:action="@{/newBook}" th:method="post">
+    <fieldset style="width: fit-content; height: fit-content">
+        <legend><h2 style="color: darkblue">New Book Entry</h2></legend>
+        <p>Name:&nbsp;<input th:field="*{name}"></p>
+        <p>Date Of Purchase:&nbsp;<input type="date" th:field="*{dateOfPurchase}"></p>
+        <p>Author:&nbsp;<input th:field="*{author}"></p>
+        <p>Price:&nbsp;<input  th:field="*{price}"></p>
+        <p>
+            <select th:field="*{category}">
+                <option th:each="c:${categories}" th:value="${c.getId()}" th:text="${c.getName()}"></option>
+            </select>
+        </p>
+    </fieldset>
+    <p><button type="submit" onclick="return confirm('Are You Sure?')">Add book entry</button></p>
+</form>
+<p><a th:href="@{/}"><button type="button">Back</button></a></p>
+</body>
+</html>

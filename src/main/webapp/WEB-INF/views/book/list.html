@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    table {
+        margin: auto;
+        border: 2px solid black;
+        margin-left: 30px;
+    }
+    tr {
+        border: 2px solid black;
+        margin: auto;
+        padding: 15px;
+    }
+    td {
+        margin: auto;
+        border: 2px solid black;
+        text-align: center;
+        padding: 15px;
+        font-weight: bolder;
+    }
+    form{
+        margin-top: 15px;
+    }
+</style>
+<body>
+<p><a th:href="@{/categoryList}"><button type="button">Category List</button></a></p>
+<p><a th:href="@{/newBook}"><button type="button">Create New Book Entry</button></a></p>
+<form action="/searchByCategory" onchange="this.submit()">
+    <a>Search By Category:</a>
+    <select name="searchCategory">
+        <option value="-1">All</option>
+        <option th:each="c:${categories}" th:text="${c.getName()}" th:value="${c.getId()}" th:selected="(${c.id} == ${searchCategory})"></option>
+    </select>
+</form>
+<form action="/sortByDOP" onchange="this.submit()">
+    <a>Sort By Date Of Purchase:</a>
+    <select name="sortDirection1">
+        <option value="no" th:selected="(${sortDirection1} == 'no')"></option>
+        <option value="asc" th:selected="(${sortDirection1} == 'asc')">ASC</option>
+        <option value="desc" th:selected="(${sortDirection1} == 'desc')">DESC</option>
+    </select>
+</form>
+<form action="/sortByPrice" onchange="this.submit()">
+    <a>Sort By Price:</a>
+    <select name="sortDirection2">
+        <option value="no" th:selected="(${sortDirection2} == 'no')"></option>
+        <option value="asc" th:selected="(${sortDirection2} == 'asc')">ASC</option>
+        <option value="desc" th:selected="(${sortDirection2} == 'desc')">DESC</option>
+    </select>
+</form>
+<p></p>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Book Name</td>
+        <td>Date Of Purchase</td>
+        <td>Author</td>
+        <td>Price</td>
+        <td>Category</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr th:each="book: ${books}">
+        <td th:text="${book.getId()}"></td>
+        <td><a th:href="@{/__${book.getId()}__/viewBook}" th:text="${book.getName()}"></a></td>
+        <td th:text="${book.dateOfPurchase}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.price}"></td>
+        <td th:text="${book.getCategory().getName()}"></td>
+        <td><a th:href="@{/__${book.getId()}__/editBook}"><button type="button">Edit</button></a></td>
+        <td><a th:href="@{/__${book.getId()}__/deleteBook}" onclick="return confirm('Are You Sure?')"><button type="button">Delete</button></a></td>
+    </tr>
+</table>
+<div th:if="!${searchCategory}and!${sortDirection1}and!${sortDirection2}" style="margin-top: 15px">
+    <a th:href="@{''(page=${books.number - 1})}" th:if="${books.hasPrevious()}">Previous</a>
+    <span th:text="${books.number + 1}"></span>/<span th:text="${books.totalPages}"></span>
+    <a th:href="@{''(page=${books.number + 1})}" th:if="${books.hasNext()}">Next</a>
+</div>
+<div th:if="${searchCategory}" style="margin-top: 15px">
+    <a th:href="@{''(searchCategory=${searchCategory},page=${books.number - 1})}" th:if="${books.hasPrevious()}">Previous</a>
+    <span th:text="${books.number + 1}"></span>/<span th:text="${books.totalPages}"></span>
+    <a th:href="@{''(searchCategory=${searchCategory},page=${books.number + 1})}" th:if="${books.hasNext()}">Next</a>
+</div>
+<div th:if="${sortDirection1}" style="margin-top: 15px">
+    <a th:href="@{''(sortDirection1=${sortDirection1},page=${books.number - 1})}" th:if="${books.hasPrevious()}">Previous</a>
+    <span th:text="${books.number + 1}"></span>/<span th:text="${books.totalPages}"></span>
+    <a th:href="@{''(sortDirection1=${sortDirection1},page=${books.number + 1})}" th:if="${books.hasNext()}">Next</a>
+</div>
+<div th:if="${sortDirection2}" style="margin-top: 15px">
+    <a th:href="@{''(sortDirection2=${sortDirection2},page=${books.number - 1})}" th:if="${books.hasPrevious()}">Previous</a>
+    <span th:text="${books.number + 1}"></span>/<span th:text="${books.totalPages}"></span>
+    <a th:href="@{''(sortDirection2=${sortDirection2},page=${books.number + 1})}" th:if="${books.hasNext()}">Next</a>
+</div>
+</body>
+</html>
