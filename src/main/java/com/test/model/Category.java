@@ -1,5 +1,7 @@
 package com.test.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,9 +12,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name,description;
-    @OneToMany(targetEntity = Book.class)
+    @JsonManagedReference
+    @OneToMany(targetEntity = Book.class ,fetch = FetchType.EAGER)
     private List<Book> books;
-
     public Category() {
     }
 

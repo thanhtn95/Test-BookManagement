@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form th:object="${book}" th:action="@{/newBook}" th:method="post">
+<form  th:object="${book}" th:action="@{/newBook}" th:method="post">
     <fieldset style="width: fit-content; height: fit-content">
         <legend><h2 style="color: darkblue">New Book Entry</h2></legend>
         <p>Name:&nbsp;<input th:field="*{name}"></p>

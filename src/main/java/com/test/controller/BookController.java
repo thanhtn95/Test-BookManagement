@@ -16,7 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@SessionAttributes("lang")
 public class BookController {
+    @ModelAttribute("lang")
+    private String setUpLang(){
+        return "en";
+    }
     @Autowired
     private BookService bookService;
     @Autowired
@@ -41,11 +46,12 @@ public class BookController {
     }
 
     @GetMapping("")
-    public ModelAndView getBookList( @PageableDefault(size = 10)Pageable pageable){
+    public ModelAndView getBookList( @PageableDefault(size = 10)Pageable pageable,@RequestParam(name = "lang",defaultValue = "en") String lang){
         Page<Book> books = bookService.findAll(pageable);
         ModelAndView modelAndView = new ModelAndView("/book/list");
         modelAndView.addObject("books",books);
         modelAndView.addObject("categories", getCategories());
+        modelAndView.addObject("lang",lang);
         return modelAndView;
     }
     @GetMapping("/{id}/viewBook")

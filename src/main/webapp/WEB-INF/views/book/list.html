@@ -27,17 +27,18 @@
     }
 </style>
 <body>
-<p><a th:href="@{/categoryList}"><button type="button">Category List</button></a></p>
-<p><a th:href="@{/newBook}"><button type="button">Create New Book Entry</button></a></p>
+<div th:replace="/layout::langselect"></div>
+<p><a th:href="@{/categoryList}"><button type="button" th:text="#{goCategoryList}"></button></a></p>
+<p><a th:href="@{/newBook}"><button type="button" th:text="#{newBookEntry}"></button></a></p>
 <form action="/searchByCategory" onchange="this.submit()">
-    <a>Search By Category:</a>
+    <a th:text="#{searchCate}"></a>
     <select name="searchCategory">
         <option value="-1">All</option>
         <option th:each="c:${categories}" th:text="${c.getName()}" th:value="${c.getId()}" th:selected="(${c.id} == ${searchCategory})"></option>
     </select>
 </form>
 <form action="/sortByDOP" onchange="this.submit()">
-    <a>Sort By Date Of Purchase:</a>
+    <a th:text="#{sortByDate}"></a>
     <select name="sortDirection1">
         <option value="no" th:selected="(${sortDirection1} == 'no')"></option>
         <option value="asc" th:selected="(${sortDirection1} == 'asc')">ASC</option>
@@ -45,7 +46,7 @@
     </select>
 </form>
 <form action="/sortByPrice" onchange="this.submit()">
-    <a>Sort By Price:</a>
+    <a th:text="#{sortByPrice}"></a>
     <select name="sortDirection2">
         <option value="no" th:selected="(${sortDirection2} == 'no')"></option>
         <option value="asc" th:selected="(${sortDirection2} == 'asc')">ASC</option>
@@ -56,11 +57,11 @@
 <table>
     <tr>
         <td>ID</td>
-        <td>Book Name</td>
-        <td>Date Of Purchase</td>
-        <td>Author</td>
-        <td>Price</td>
-        <td>Category</td>
+        <td th:text="#{bookName}"></td>
+        <td th:text="#{DOP}"></td>
+        <td th:text="#{author}"></td>
+        <td th:text="#{price}"></td>
+        <td th:text="#{cate}"></td>
         <td></td>
         <td></td>
     </tr>
@@ -71,8 +72,8 @@
         <td th:text="${book.author}"></td>
         <td th:text="${book.price}"></td>
         <td th:text="${book.getCategory().getName()}"></td>
-        <td><a th:href="@{/__${book.getId()}__/editBook}"><button type="button">Edit</button></a></td>
-        <td><a th:href="@{/__${book.getId()}__/deleteBook}" onclick="return confirm('Are You Sure?')"><button type="button">Delete</button></a></td>
+        <td><a th:href="@{/__${book.getId()}__/editBook}"><button type="button" th:text="#{edit}"></button></a></td>
+        <td><a th:href="@{/__${book.getId()}__/deleteBook}" onclick="return confirm('Are You Sure?')"><button type="button" th:text="#{deleter}"></button></a></td>
     </tr>
 </table>
 <div th:if="!${searchCategory}and!${sortDirection1}and!${sortDirection2}" style="margin-top: 15px">
